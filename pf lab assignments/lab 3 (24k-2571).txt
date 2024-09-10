@@ -1,0 +1,135 @@
+lab 03 (24k-2571)
+*Work already pushed on github*
+
+QUESTION #01:
+
+Problem description: the variable testInteger is initialised with a value of 3000000000 and then printf function is used to display this value.
+However, the output value is -1294967296.
+
+Solution: In c lang the int data type can store 32bits (4 BYTES) usually. 3000000000 exceeds this limit and overflow occurs resulting in
+unexpected negative number.
+Use data type long long int or unsigned int to print this value of, 3000000000.
+
+QUESTION #02:
+
+#include <stdio.h>
+int main()
+{
+  int a,b,c; // Declare three integer variables
+  printf("Enter two numbers:");
+  scanf("%d %d",&a, &b);
+  // Swaping the two numbers
+  c = a;
+  a = b;
+  b = c;
+  printf("Both numbers swapped: %d %d\n",a, b); // Displaying both the numbers after swapping
+  return 0;
+} //end main
+
+
+
+QUESTION #03:
+
+#include <stdio.h>
+int main()
+{
+  int salary;// Declare a variable as int data type
+  float tax_rate;// Declare a variable as float data type
+  float tax_payable; // Variable to store tax user has to pay as float data type
+  float salary_left; // Variable to store remaining salary of user as float data type
+  printf("Enter your salary and tax rate: \n");
+  scanf("%d %f", &salary, &tax_rate);
+  tax_payable = (tax_rate/100)*salary; //Calculating tax user has to pay
+  salary_left = salary - tax_payable; // salary left after tax deduction
+  printf("Tax you have to pay: %.2f\n", tax_payable);
+  printf("Salary left after paying tax: %.2f", salary_left);
+  return 0;
+} //end main
+
+
+
+
+QUESTION #04:
+
+#include <stdio.h>
+int main()
+{
+float fuel_avg, fuel_conA, fuel_conB, total_fuelCost, total_fuelCon; //Declare variables as float data type
+do{
+printf("Enter your car's fuel average: ");
+scanf("%f",&fuel_avg);
+} //end do-while
+while (fuel_avg <= 0); // Repeat until value greater than 0
+fuel_conA = 1207/fuel_avg; // fuel consumed during trip from A to B
+fuel_conB = 1207/fuel_avg; // fuel consumed during trip from B to A
+total_fuelCost = fuel_conA*118 + fuel_conB*123; //total fuel cost for the whole trip
+total_fuelCon = fuel_conA + fuel_conB; //total fuel consumed during the complete trip
+printf("Total fuel cost for whole trip: %.2f \n", total_fuelCost);
+printf("Total fuel consumed for whole trip: %.2f", total_fuelCon);
+return 0;
+} //end main
+
+
+
+
+QUESTION #05:
+
+#include <stdio.h>
+int main()
+{
+  int principle_amount, interest_rate, time_period;
+  float simple_interest;
+  do {
+    printf("Enter the principle amount between Rs.100 and Rs. 1,000,000: ");
+    scanf("%d", &principle_amount);
+    printf("Enter Rate of Interest between 5% 10 10%: ");
+    scanf("%d", &interest_rate);
+    printf("Enter the time period for the interest between 1 to 10 years: ");
+    scanf("%d", &time_period);
+} // end do-while
+while ((principle_amount <100 || principle_amount > 1000000) || (interest_rate <5 || interest_rate > 10) || (time_period <1 || time_period>10));
+simple_interest = (principle_amount*interest_rate*time_period)/100;
+printf("The simple interest amount for %d years is RS. %.2f", time_period, simple_interest);
+return 0;
+} // end main
+
+
+
+
+QUESTION #06:
+
+#include <stdio.h>
+int main()
+{
+int x1, x2, y1, y2; // Declare variables as integer
+x1 = 5;
+x2 = 3;
+y1 = 4;
+y2 = 2;
+float slope = (y2-y1)/(x2-x1); // calculating slope between two points
+printf("The slope of points (5,4) and (3,2) is %.3f: ", slope);
+return 0;
+} // end main
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
