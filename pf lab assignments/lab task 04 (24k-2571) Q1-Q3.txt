@@ -1,0 +1,124 @@
+QUESTION #1:
+
+#include <stdio.h>
+int main()
+{
+	int num;
+	while (1){
+		printf("enter a number (or -1 to exit): ");
+		scanf("%d", &num);
+		if (num == -1){
+		break;
+		}
+		if (num < 0){
+		printf("Enter number greater than 0 or -1 to exit: \n");
+		continue;
+	}
+	if (num%2 == 0){
+	printf("This number is even \n");
+	} else {
+	printf("This num is odd \n");
+	}
+}
+return 0;
+} //end main
+
+
+
+
+QUESTION # 2:
+
+#include <stdio.h>
+int main()
+{
+	int choice,a,b,result;
+	printf("enter number a: ");
+	scanf("%d", &a);
+	printf("Enter number b: ");
+	scanf("%d", &b);
+	printf("Enter 1 for addition, 2 for subtraction, 3 for multiplication and 4 for division: \n");
+	scanf("%d", &choice);
+	switch (choice)
+	{
+	case 1:
+		result = a+b;
+		printf("%d", result);
+		break;
+	case 2:
+		result = a-b;
+		printf("%d", result);
+		break;
+	case 3:
+		result = a*b;
+		printf("%d", result);
+		break;
+	case 4:
+		result = a/b;
+		printf("%d", result);
+		break;
+	}
+} //end main
+
+
+
+
+QUESTION # 3:
+#include <stdio.h>
+int main()
+{
+	char key;
+	printf("Enter any key: ");
+	scanf("%c", &key);
+	if (key == 'a' || key == 'e' || key == 'i' || key =='o' || key == 'u' ||  key == 'A' || key == 'E' || key == 'I' || key == 'O' || key == 'U'){
+	printf("Vowels");
+	} else if ((key >= 'a' && key <='z') || (key >='A' && key <= 'Z')){
+	printf("This key is a consonant ");
+	} else if (key >=0 && key<= 9){
+	printf("this key is a digit");
+	} else{
+	printf("This is a special character");
+	}
+	return 0;
+}
+
+
+
+
+
+EXAMPLE QUESTION (ATM machine):
+
+
+#include <stdio.h>
+int main()
+{
+	int choice, withdraw, deposit;
+	float balance;
+	balance = 5000;
+	printf("Enter 1 to check balance, press 2 to withdraw an amount, press 3 for depositing the amount and press 4 to exit the system: ");
+	scanf("%d", &choice);
+	switch (choice){
+		case 1:
+			printf("The current balance is %.2f", balance);
+			break;
+		case 2:
+			printf("Enter the amount to withdraw");
+			scanf("%d", &withdraw);
+			balance = balance - withdraw;
+			printf("The remaining balance is %.2f", balance);
+			break;
+		case 3:
+			printf("Enter the amount to deposit");
+			scanf("%d", &deposit);
+			balance = balance + deposit;
+			printf("The new balance in account is %.2f", balance);
+			break;
+		case 4:
+			printf("Exiting the program");
+			break;
+	}
+
+} //end main
+
+
+
+
