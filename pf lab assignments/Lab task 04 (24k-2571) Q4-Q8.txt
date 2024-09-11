@@ -1,0 +1,302 @@
+LAB TASK # 04:
+
+QUESTION 04:
+
+
+#include <stdio.h>
+int main()
+{
+  int choice;
+  float radius, area, length, breadth, height, base;
+  printf("Enter 1 for calculating area of circle, enter 2 for calculating area of rectangle,     enter 3 for calculating area of triangle, enter 4 to exit the program: ");
+  scanf("%d", &choice);
+  switch (choice){
+    case 1:
+      printf("Enter the radius of the circle: ");
+      scanf("%f", &radius);
+      area = 3.14 * radius * radius;
+      printf("The area of the circle is %.2f", area);
+      break;
+    case 2:
+      printf("Enter the length and breath of the rectangle: ");
+      scanf("%f %f", &length, & breadth);
+      area = length * breadth;
+      printf("The area of rectangle is %.2f: ", area);
+      break;
+    case 3:
+      printf("Enter the height and base of the triangle:");
+      scanf("%f %f", &height, &base);
+      area = 0.5 * height * base;
+      printf("The area of the triangle is %.2f", area);
+      break;
+    case 4:
+      printf("Exiting the program");
+      break;
+  }
+return 0;
+} //end main
+
+
+
+QUESTION 05:
+
+
+#include <stdio.h>
+int main()
+{
+	char unit, convert;
+	float temp, result;
+	printf("Enter the input temperature unit i.e Celcius(C), Fahrenheit(F), Kelvin(K): ");
+	scanf(" %c", &unit);
+	printf("Enter the temperature to convert: ");
+	scanf("%f", &temp);
+	switch (unit){
+		
+		case 'C':
+		case 'c':
+			printf("Enter the unit of conversion of temperature to Kelvin(K) or Fahrenheit(F): ");
+			scanf(" %c", &convert);
+			if (convert == 'F' || convert == 'f'){
+				result = (9.0/5.0*temp)+32;
+				printf("The converted temperature is %.2fF\n ", result);
+			} else {
+				result = temp + 273.15;
+				printf("The converted temp is %.2fK ", result);
+			}
+			break;
+		case 'F':
+		case 'f':
+			printf("Enter the unit of conversion of temperature to Kelvin(K) or Celcius(C)): ");
+			scanf(" %c", &convert);
+			if (convert == 'K' || convert == 'k'){
+				result = (temp-32)*5.0/9.0+273.15;
+				printf("The converted temperature is %.2fK ", result);
+			} else {
+				result = (temp-32)*5/9;
+				printf("The converted temp is %.2fC ", result);
+			}
+			break;
+		case 'K':
+		case 'k':
+			printf("Enter the unit of conversion of temperature to Celcius(C) or Fahrenheit(F): ");
+			scanf(" %c", &convert);
+			if (convert == 'C' || convert == 'c'){
+				result = temp - 273.15;
+				printf("The converted  temperature is %.2fC");
+			} else {
+				result = (temp-273.15)*9.0/5.0+32;
+				printf("The converted temp is %.2fF ", result);
+			}
+			break;
+	} // end switch
+	printf("Thank you for using our AI-powered temperature converter.");
+} //end main
+
+
+
+
+QUESTION 06:
+
+
+
+#include <stdio.h>
+int main()
+{
+	int purchase_amount;
+	float dis_amount, pay_amount;
+	printf("Enter the total amount of items u purchased: ");
+	scanf("%d", &purchase_amount);	
+	if (purchase_amount >= 500 && purchase_amount < 2000){
+		dis_amount = (5.0/100.0)*purchase_amount;
+		pay_amount = purchase_amount - dis_amount;
+	} else if ( purchase_amount >= 2000 && purchase_amount < 4000){
+			dis_amount = (10.0/100.0)*purchase_amount;
+			pay_amount = purchase_amount - dis_amount;
+	} else if (purchase_amount >= 4000 && purchase_amount < 6000){
+			dis_amount = (20.0/100.0)*purchase_amount;
+			pay_amount = purchase_amount - dis_amount;
+	} else if (purchase_amount >= 6000){
+			dis_amount = (35.0/100.0)*purchase_amount;
+			pay_amount = purchase_amount - dis_amount;
+	}
+	printf("The actual amount of purchase is %d\n", purchase_amount);
+	printf("The money saved is %.2f \nThe amount to pay is %.2f", dis_amount, pay_amount);
+	return 0;
+} // end main
+
+
+
+
+QUESTION 07:
+
+
+#include <stdio.h>
+int main()
+{
+	int user_id, units_con;
+	char name[20];
+	float pay_amount,total_amount, surcharges, charges;
+	printf("Enter the consumer id: \n");
+	scanf("%d", &user_id);
+	printf("Enter the name of consumer: \n");
+	scanf("%s", &name);
+	printf("Enter the units consumed: \n");
+	scanf("%D", &units_con);
+	if (units_con <= 199){
+		charges = 16.20;
+		pay_amount = units_con*charges;
+		if (pay_amount >= 18000){
+			surcharges = (15.0/100.0)*pay_amount;
+		}
+		total_amount = pay_amount + surcharges;
+		
+	} else if (units_con >=200 && units_con < 300){
+			charges = 20.10;
+			pay_amount = units_con*charges;
+			if (pay_amount >= 18000){
+				surcharges = (15.0/100.0)*pay_amount;
+		 	}
+			 total_amount = pay_amount + surcharges;
+			
+			
+	} else if (units_con >= 300 && units_con < 500){
+			charges = 27.10;
+			pay_amount = units_con*charges;
+			if (pay_amount >= 18000){
+				surcharges = (15.0/100.0)*pay_amount;
+			}
+			total_amount = pay_amount + surcharges;
+			
+	} else if (units_con >= 500){
+			charges = 35.90;
+			pay_amount = units_con*charges;
+			if (pay_amount >= 18000){	
+				surcharges = (15.0/100.0)*pay_amount;
+			}
+			total_amount = pay_amount + surcharges;
+			
+	}
+	printf("Customer ID: %d\n", user_id);
+	printf("Customer Name: %s\n", name);
+	printf("Units Consumed: %d\n", units_con);
+	printf("Amount Charges @ %.2f per unit: %.2f\n", charges, pay_amount);
+	printf("Surcharge Amount: %.2f\n", surcharges);
+	printf("Net amount paid by the customer: %.2f", total_amount);
+} //end main
+
+
+
+
+
+QUESTION 08:
+
+
+(IF WE HAVE TO PRINT CORRESPONDING ENGLISH WORDS TILL THE NUMBER n.)
+
+#include <stdio.h>
+int main()
+{
+	int n;
+	char numbers[9][6] = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
+	while (1){
+	printf("Enter the number or -1 to exit: ");
+	scanf("%d", &n);
+	if (n == -1){
+	break;
+	} else if ( n<0 ){
+			printf("Enter a positive number. \n");	
+			continue;
+	}
+	
+	if (n>= 1 && n<= 9){
+		for (int i = 0; i<n; i++){
+			printf("%s\n", numbers[i]);
+		} 
+	} else if (n>9){
+			printf("The number is greater than nine\n");
+	}
+	}
+} //end main
+	
+
+
+(IF WE HAVE TO JUST PRINT THE CORRESPONDING ENGLISH WORD FOR THE NUMBER, n.)
+
+
+#include <stdio.h>
+
+int main() {
+    int n;
+    while(1){
+	printf("Enter a  positive number or -1 to exit: ");
+    scanf("%d", &n);
+
+    if (n== -1){
+	break;
+	} else if (n<=0){
+			continue;
+	}
+	if (n >= 1 && n <= 9) {
+        switch (n) {
+            case 1:
+                printf("one\n");
+                break;
+            case 2:
+                printf("two\n");
+                break;
+            case 3:
+                printf("three\n");
+                break;
+            case 4:
+                printf("four\n");
+                break;
+            case 5:
+                printf("five\n");
+                break;
+            case 6:
+                printf("six\n");
+                break;
+            case 7:
+                printf("seven\n");
+                break;
+            case 8:
+                printf("eight\n");
+                break;
+            case 9:
+                printf("nine\n");
+                break;
+        }
+    } else {
+        printf("greater than 9\n");
+    }
+	}
+    return 0;
+} // end main
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
