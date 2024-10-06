@@ -1,0 +1,299 @@
+LAB TASK 06:
+
+
+Question 1:
+
+
+While loop suits for such situations, as it does not require the number of iterations before execution. while loop checks condition and
+if it meets it continues to execute tuntil the given condition is false. Hence, in the given situation we dont't know how many inputs the 
+user would give until he/she enters zero. Moreover, while loop gives clarity in sense that continue until zero is entered which is easy for 
+user to understand.
+
+#include <stdio.h>
+
+int main() {
+    int value;
+    int sum = 0; 
+    printf("Enter a value (0 to stop): ");
+    scanf("%d", &value);
+    while (value != 0) {
+        sum += value;  
+        printf("Current sum: %d\n", sum); 
+        printf("Enter a value (0 to stop): ");
+        scanf("%d", &value);
+    }
+
+    printf("Final sum: %d\n", sum); 
+    return 0;
+}
+
+
+
+
+Question 2:
+
+
+
+#include <stdio.h>
+
+int main() {
+	int a,b,greater,lesser,sum = 0;
+	while (1) {
+        printf("Enter two numbers to print the sum of even numbers in between, inclusive: \n");
+        scanf("%d %d", &a, &b);
+
+        if (a % 2 != 0) {
+            printf("Enter the first number as an even number: ");
+            continue;
+        }
+        if (b % 2 != 0) {
+            printf("Enter the second number as an even number: ");
+            continue;
+        }
+        break;
+    }
+	greater = a>b? a:b;
+	lesser = a>b? b:a;
+	while (lesser != greater){
+		sum = sum + lesser;
+		lesser = lesser + 2;
+	}
+	sum = sum + greater;
+	printf("The sum of all even numbers in interval %d and %d inclusive is: %d ",a,b,sum);
+	return 0;
+} //end main
+
+
+
+
+Question 3:
+
+
+
+#include <stdio.h>
+#include <stdbool.h>
+int main() {
+	int pin, valid, attempts = 0;
+	bool flag = false;
+	valid = 5678;
+	while(flag == false && attempts <3){
+		printf("Enter your 4-digit ATM card pin: \n");
+		scanf("%d",&pin);
+		if (pin >= 1000 && pin <= 9999){
+			if (pin == valid){
+				printf("Your pin is valid. \n");
+				flag = true;
+			} else{
+				attempts ++;
+				printf("The entered pin is invalid. You have %d attempt(s) left. \n",3-attempts);
+		}
+		} else{
+			printf("Please enter a valid 4-digit pin.\n");
+		}
+	}
+	if ( attempts == 3){
+	printf("You have entered the pin incorrect 3 times. Your card has been blocked. \n");
+	}
+} // end main
+
+
+
+
+Question 4:
+
+
+
+#include <stdio.h>
+#include <stdbool.h>
+int main() {
+	int streak = 0, input;
+	bool message;
+	while(1){
+		printf("If u sent a message today enter 1(YES) and 0(NO): \n");
+		scanf("%d", &input);
+		if (input == 1){
+			message = true;
+			streak ++;
+			printf("Your streak with your friend is %d.\n",streak);
+			continue;
+		} else if (input == 0){
+			message = false;
+			streak = 0;
+			printf("The streak with your friend ended. streak count is %d. \n", streak);
+			break;
+		} else {
+			printf("Enter a valid input. \n");
+		}
+	}
+} // end main
+
+
+
+
+Question 5:
+
+
+
+#include <stdio.h>
+
+int prime(int num){
+	int count = 0,temp;
+	temp = num;
+	while (1){
+		if (num == 1){
+			printf("Enter a number other than 1.\n");
+			scanf("%d",&num);
+		} else if (num <= 0){
+			printf("Enter a positive number.\n");
+			scanf("%d",&num);
+		} else {
+			break;
+		}
+	}
+	while ( temp != 0){
+		if (num % temp == 0){
+			count++;
+			temp--;
+		} else{
+			temp--;
+		}
+	}
+	if (count == 2){
+		printf("The number is prime.\n");
+	} else {
+		printf("The entered number is not prime.\n");
+	}
+} //end function prime
+
+
+
+int main () {
+	int num;
+	printf("Enter a number to check if it is prime: \n");
+	scanf("%d",&num);
+	prime(num);
+} //end main
+
+
+
+
+
+Question 6:
+
+
+
+
+#include <stdio.h>
+
+int prime(int num){
+	int count = 0,temp;
+	temp = num;
+	while (1){
+		if (num == 1){
+			printf("Enter a number other than 1.\n");
+			scanf("%d",&num);
+		} else if (num <= 0){
+			printf("Enter a positive number.\n");
+			scanf("%d",&num);
+		} else {
+			break;
+		}
+	}
+	while ( temp != 0){
+		if (num % temp == 0){
+			count++;
+			temp--;
+		} else{
+			temp--;
+		}
+	}
+	if (count == 2){
+		printf("The number is prime.\n");
+	} else {
+		printf("The entered number is not prime.\n");
+	}
+} //end function prime
+
+
+
+int main () {
+	int num, previous = 1,series = 0,next;
+	printf("Enter a number to check if it is prime: \n");
+	scanf("%d",&num);
+	prime(num);
+	// printing the fibonacci series of user entered number
+	printf("fabonacci series: %d, %d",series,previous);
+	for (int i = 1; i<= num-2; i++){
+		next = previous + series;
+		printf(", %d",next);
+		series = previous;
+		previous = next;
+	}
+} //end main
+
+
+
+
+Question 7:
+
+
+
+#include <stdio.h>
+
+int main(){
+	int num,last,sum = 0;
+	printf("Enter a number to check if it is Armstrong: \n");
+	scanf("%d",&num);
+	int permenant = num;
+	while (num != 0){
+		last = num % 10;
+		sum = sum + (last*last*last);
+		//updating number so it is now 2 remaining digit
+		num = num / 10;
+	}//end while
+	if (sum == permenant){
+		printf("The number entered is Armstrong.\n");
+	} else {
+		printf("The entered number is not Armstrong.\n");
+	}
+	return 0;
+}//end main
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
