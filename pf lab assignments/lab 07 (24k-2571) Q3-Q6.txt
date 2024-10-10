@@ -1,0 +1,234 @@
+QUESTION 3:
+
+
+#include <stdio.h>
+int main(){
+	char name[30],email[20],contact[20];
+	// Validating the name entered
+	while (1){
+		printf("Enter your name: \n");
+		scanf("%s", name);
+		int valid = 1;
+		for (int j=0; name[j] != '\0';j++){
+			// name should only have alphabets
+			if (!((name[j] >= 'A' && name[j]<= 'Z')||(name[j]>= 'a' && name[j] <= 'z'))){
+			valid = 0;
+		}
+}
+
+	if (valid){
+		printf("Valid name.\n");
+		break;
+	} else {
+		printf("Invalid name. Your name should have only alphabetic characters.\n");
+	}
+}
+	// validating email address entered
+	while(1){
+	printf("Enter your email in the format username@example.com: \n");
+	scanf("%s", email);
+	int correct = 1;
+	int at_the_rate = 0;
+	for (int i=0; email[i] != '\0';i++){
+		// email CAN conain  these characters
+		if (!((email[i] >= 'A' && email[i] <= 'Z')||(email[i]>='a'&&email[i]<='z')||
+		(email[i]>='0' && email[i]<='9')|| 
+		(email[i] == '.') || 
+		(email[i]== '_')|| 
+		(email[i]== '-')||
+		(email[i] == '@'))){
+		correct = 0;
+		} 
+		if (email[i] == '@'){
+			at_the_rate = 1;
+		}
+	}
+	if (correct && at_the_rate){
+		printf("Valid email entered.\n");
+		break;
+	} else {
+		printf("Invalid email id. @symbol must be used and no other characters than alphabets, numbers, '.', '_' and '-' be used.\n");
+	}
+
+}
+	// validating phone number
+	while(1){
+		printf("Enter the phone number: \n");
+		scanf("%s", contact);
+		int result = 1;
+		// the + sign can only be at the start and nopt elsewhere in the contact number
+		if (contact[0] == '+') {
+            for (int k = 1; contact[k] != '\0'; k++) { 
+                if (!((contact[k] >= '0' && contact[k] <= '9') ||
+                      contact[k] == ' ' ||
+                      contact[k] == '-')) {
+                    result = 0; 
+                    break; 
+                }
+            }
+        } else { 
+            for (int k = 0; contact[k] != '\0'; k++) {
+                if (!((contact[k] >= '0' && contact[k] <= '9') ||
+                      contact[k] == ' ' ||
+                      contact[k] == '-')) {
+                    result = 0; 
+                    break; 
+                }
+            }
+        }
+		
+	if (result){
+		printf("Valid phone number.\n");
+		break;
+	} else {
+		printf("Invalid conact number.\n");
+	}
+}
+}//end main
+
+
+
+
+
+QUESTION 4:
+
+
+
+#include <stdio.h>
+int main(){
+	int array[10] = {4,1,6,8,21,8,9,2,6};
+	int min = array[0],max = array[0],size;
+	size = sizeof(array)/sizeof(array[0]);
+	for (int i=0; i<size-1 ;i++){
+		if (array[i]<min){
+			min = array[i];
+		}
+		if (array[i]>max){
+			max = array[i];
+		}
+	}
+	printf("{");
+	for (int j=0;j<size-1;j++){
+		printf("%d, ",array[j]);
+	}
+	printf("}\n");
+	printf("Minimum: %d\n", min);
+	printf("Maximumn: %d\n", max);
+}//end main
+
+
+
+
+QUESTION 5:
+
+
+#include <stdio.h>
+int main(){
+	int temperature[7];
+	for (int i=0; i<7;i++){
+		printf("Enter the value of temperature for day %d: ",i+1);
+		scanf("%d",&temperature[i]);
+	}
+	for (int j=0; j<7; j++){
+		printf("%d, ",temperature[j]);
+	}
+	printf("\n");
+	int max = temperature[0],min = temperature[0];
+	for (int k=0; k<7; k++){
+		if (temperature[k]<min){
+			min = temperature[k];
+		} else if (temperature[k]>max){
+			max = temperature[k];
+		}
+	}
+	printf("The maximum value is: %d\n",max);
+	printf("The minimum value is: %d\n",min);
+	return 0;
+}
+
+
+
+
+QUESTION 6:
+
+
+
+
+#include <stdio.h>
+
+int main() {
+    int n = 5;
+    int arr[] = {2, 3, 1, 2, 3};
+    int count[n];  
+    for (int i = 0; i < n; i++) {
+        count[i] = 0;
+    }
+    // Count occurrences of each element
+    for (int i = 0; i < n; i++) {
+        count[arr[i]]++;
+    }
+    int duplicate = 0;
+    for (int i = 0; i < n; i++) {
+        if (count[i] > 1) {
+            printf("Number %d occurs more than once.\n", i);
+            duplicate = 1;
+        }
+    }
+
+    if (!duplicate) {
+        printf("No duplicates found.\n");
+    }
+
+    return 0;
+} //endmain
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
