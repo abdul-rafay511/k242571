@@ -1,0 +1,82 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <string.h>
+
+#define ROWS 6
+#define COL 5
+
+int main() {
+    char arr[ROWS][COL];
+    srand(time(0));
+
+    // Populate the array with random alphabets
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COL; j++) {
+            arr[i][j] = 'A' + (rand() % 26);
+        }
+    }
+    printf("Generated Grid:\n");
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COL; j++) {
+            printf("%c ", arr[i][j]);
+        }
+        printf("\n");
+    }
+
+    int score = 0;
+    char str[10];
+
+    while (1) {
+        printf("Enter the string to search (or type 'END' to exit): ");
+        fgets(str, sizeof(str), stdin);
+        str[strcspn(str, "\n")] = 0; 
+
+        if (strcmp(str, "END") == 0) {
+            break;
+        } else if (strlen(str) > 9) {
+            printf("Input is too long. Maximum length is 9 characters.\n");
+            continue; 
+        } else {
+            int found = 0;
+
+            // Horizontal Check
+            for (int i = 0; i < ROWS; i++) {
+                char temp[COL + 1];
+                strncpy(temp, arr[i], COL);
+                temp[COL] = '\0'; 
+                if (strcmp(str, temp) == 0) {
+                    found = 1;
+                    score++;
+                    break; 
+                }
+            }
+
+            // Vertical Check
+            if (!found) {  
+                for (int i = 0; i < COL; i++) {
+                    char temp[ROWS + 1]; 
+                    for (int j = 0; j < ROWS; j++) {
+                        temp[j] = arr[j][i];
+                    }
+                    temp[ROWS] = '\0'; 
+                    if (strcmp(str, temp) == 0) {
+                        found = 1;
+                        score++;
+                        break; 
+                    }
+                }
+            }
+
+            if (found) {
+                printf("%s is present.\n", str);
+            } else {
+                printf("%s is not present.\n", str);
+                score--; 
+            }
+            printf("Your score is %d.\n", score);
+        }
+    }
+
+    return 0;
+}

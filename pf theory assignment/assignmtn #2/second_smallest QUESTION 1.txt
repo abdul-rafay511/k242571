@@ -1,0 +1,34 @@
+#include <stdio.h>
+
+int main() {
+	int small_index,smallest,num, array[5] = {0,0,0,0,0}; 
+	while (1){
+	for (int i=0;i<5;i++){
+		printf("Enter a number lesser than 9999 for index %d: \n",i);
+		scanf("%d",&num);
+		if (num<9999){
+			array[i] = num;
+		} else {
+			printf("Invalid Input.\n");
+			i--; //re-enter the value for same index
+		}
+	}
+	break;
+}
+	smallest = array[0];
+	for (int k=0;k<5;k++){
+		if (array[k]<smallest){
+			smallest = array[k];
+			small_index = k;
+		}
+	}
+	array[small_index] = 9999;
+	smallest = array[small_index];
+	for (int j=0;j<5;j++){
+		if (array[j]<smallest){
+			smallest = array[j];
+		}
+	}
+	printf("The second smallest number is %d",smallest);
+	return 0;
+}//end main

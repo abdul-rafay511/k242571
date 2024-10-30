@@ -1,0 +1,74 @@
+#include <stdio.h>
+
+int main() {
+	char words [3][20] = {"booooook","coooooool","heeeeey"};
+	char reduce [20],result[3][20],temp;
+	int index=0,count=0;
+	// copying first row of array words into array reduce
+	while (words[0][index] != '\0'){
+		reduce[index] = words[0][index];
+		index++;
+	}
+	reduce[index] = '\0';
+	
+	int j=1; 
+	result[0][0] = reduce[0];
+	for (int i=1; reduce[i] != '\0';i++){
+		if (reduce[i] != reduce[i-1]){
+			result[0][j] = reduce[i];
+			j++;
+		} else {
+			count++;
+		}
+	} result[0][j] = '\0';
+	for (int i=0;result[0][i] != '\0';i++){
+		printf("%c",result[0][i]);
+	} printf("\n");
+	printf("This many characters were removed from orignal word: %d\n",count);
+	// printing second word of array words
+	int i=0;
+	for (i;words[1][i] != '\0';i++){
+		reduce[i] = words[1][i];
+	} 
+	reduce[i] = '\0';
+	j=1,count = 0;
+	result[1][0] = reduce[0];
+	for (int i=1; reduce[i] != '\0';i++){
+		if (reduce[i] != reduce[i-1]){
+			result[1][j] = reduce[i];
+			j++;
+		} else {
+			count++;
+		}
+	} result[1][j] = '\0'; 
+	for (int i=0;result[1][i] != '\0';i++){
+		printf("%c",result[1][i]);
+	} printf("\n");
+	printf("This many characters were removed from orignal word: %d\n",count);
+	//reducing last word by first initialising it in array reduce
+	i=0;
+	for (i;words[2][i] != '\0';i++){
+		reduce[i] = words[2][i];
+	} 
+	reduce[i] = '\0';
+	j=1,count = 0;
+	result[2][0] = reduce[0];
+	for (int i=1; reduce[i] != '\0';i++){
+		if (reduce[i] != reduce[i-1]){
+			result[2][j] = reduce[i];
+			j++;
+		} else {
+			count++;
+		}
+	} result[2][j] = '\0'; 
+	for (int i=0;result[2][i] != '\0';i++){
+		printf("%c",result[2][i]);
+	} printf("\n");
+	printf("This many characters were removed from orignal word: %d\n",count);
+	for (int a=0;a<3;a++){
+		for(int b=0;result[a][b] != '\0';b++){
+			printf("%c",result[a][b]);
+		} printf(",");
+	}
+	return 0;
+}

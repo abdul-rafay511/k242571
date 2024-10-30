@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+#define MAX_TRAN 100
+#define LENGTH 100
+
+// Sorting characters in a string
+void sort(char *str) {
+    int len = strlen(str);
+    for (int i = 0; i < len - 1; i++) {
+        for (int j = i + 1; j < len; j++) {
+            if (str[i] > str[j]) {
+                char temp = str[i];
+                str[i] = str[j];
+                str[j] = temp;
+            }
+        }
+    }
+}
+
+// checking if two strings are anagrams 
+int Anagrams(const char *str1, const char *str2) {
+    char sort1[LENGTH], sort2[LENGTH];
+    strcpy(sort1, str1);
+    strcpy(sort2, str2);
+    
+    sort(sort1);
+    sort(sort2);
+    
+    return strcmp(sort1, sort2) == 0;
+}
+
+int main() {
+    char trans[MAX_TRAN][LENGTH] = {"eat", "tea", "tan", "ate", "nat", "bat"};
+    int n = 6; 
+    int group[MAX_TRAN] = {0}; 
+    
+    // Grouping anagrams
+    for (int i = 0; i < n; i++) {
+        if (group[i]) continue; 
+        
+        printf("[");
+        printf("%s", trans[i]); 
+        group[i] = 1;
+        
+        for (int j = i + 1; j < n; j++) {
+            if (!group[j] && Anagrams(trans[i], trans[j])) {
+                printf(", %s", trans[j]);
+                group[j] = 1; 
+            }
+        }
+        printf("]\n"); 
+    }
+    
+    return 0;
+}

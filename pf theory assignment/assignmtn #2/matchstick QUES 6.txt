@@ -1,0 +1,22 @@
+#include <stdio.h>
+
+int pick(int N) {
+    if (N % 5 == 0) {
+        return -1;
+    }
+    return N % 5;
+}
+
+int main() {
+    int N;
+    printf("Enter the number of matchsticks: ");
+    scanf("%d", &N);
+    
+    int result = pick(N);
+    if (result == -1) {
+        printf("It is impossible for A to guarantee a win.\n");
+    } else {
+        printf("A should pick %d matchstick(s) on the first turn to guarantee a win.\n", result);
+    }
+    return 0;
+}
