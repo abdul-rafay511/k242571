@@ -1,0 +1,75 @@
+#include <stdio.h>
+
+// display the grid
+void displayGrid(char grid[5][5]) {
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+            printf("%c ", grid[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    char grid[5][5] = {
+        {' ', ' ', 'I', 'X', ' '},
+        {' ', 'X', ' ', ' ', ' '},
+        {'I', ' ', 'X', 'X', ' '},
+        {' ', ' ', ' ', 'I', 'X'},
+        {' ', 'X', ' ', ' ', 'P'}
+    };
+
+    int playerRow = 4, playerCol = 4;
+    char move;
+    int itemsCollected = 0;
+
+    printf("Welcome to the Grid Adventure Game!\n");
+    
+    while (1) {
+        displayGrid(grid);
+        printf("Items collected: %d\n", itemsCollected);
+        printf("Enter move (W: up, S: down, A: left, D: right, Q: quit): ");
+        scanf(" %c", &move);
+        move = toupper(move);
+        
+		while (move != 'W' && move != 'S' && move != 'A' && move != 'D' && move != 'Q') {
+            printf("Invalid move. Try again: ");
+            scanf(" %c", &move);
+        }
+
+        if (move == 'Q') {
+            printf("Game over. Total items collected: %d\n", itemsCollected);
+            break;
+        }
+
+        // updating position
+        int newRow = playerRow, newCol = playerCol;
+
+        if (move == 'W') newRow--;        
+        else if (move == 'S') newRow++;    
+        else if (move == 'A') newCol--;     
+        else if (move == 'D') newCol++;     
+
+
+        if (newRow < 0 || newRow >= 5 || newCol < 0 || newCol >= 5) {
+            printf("Cannot move outside the grid!\n");
+            continue;
+        }
+        if (grid[newRow][newCol] == 'X') {
+            printf("Cannot move into an obstacle!\n");
+            continue;
+        }
+
+        if (grid[newRow][newCol] == 'I') {
+            itemsCollected++;
+            printf("Item collected!\n");
+        }
+
+        grid[playerRow][playerCol] = ' ';   // Clear old position
+        playerRow = newRow;
+        playerCol = newCol;
+        grid[playerRow][playerCol] = 'P';  
+    }
+
+    return 0;
+}
