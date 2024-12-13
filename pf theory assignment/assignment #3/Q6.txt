@@ -1,0 +1,111 @@
+QUESTION 6:
+
+/*
+In designing this system, I focused on creating a flexible, scalable architecture using dynamic memory allocation to efficiently handle the interconnected data of fields, crops, equipment, and weather. 
+By utilizing pointers and structures, I ensured that each component could grow or shrink based on the needs of the system.
+*/
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct {
+    float lat, lon;
+    float ph, nutrients;
+    float moisture;
+} Sensor;
+
+typedef struct {
+    char type[20];
+    int stage;
+    float yield;
+    struct Weather* w;
+} Crop;
+
+typedef struct {
+    float temp, rain, wind;
+} Weather;
+
+typedef struct {
+    char name[20];
+    float fuel;
+    int status;
+    char schedule[50];
+} Equipment;
+
+typedef struct {
+    float lat, lon;
+    Sensor* s;
+    Crop* c;
+    Equipment* e;
+    int num_sensors, num_crops, num_equip;
+} Field;
+
+typedef struct {
+    Field* f;
+    int num_fields;
+} Hub;
+
+typedef struct {
+    Hub* h;
+    int num_hubs;
+} Server;
+
+void init_field(Field* f, int sensors, int crops, int equip) {
+    f->s = malloc(sensors * sizeof(Sensor));
+    f->c = malloc(crops * sizeof(Crop));
+    f->e = malloc(equip * sizeof(Equipment));
+    f->num_sensors = sensors;
+    f->num_crops = crops;
+    f->num_equip = equip;
+}
+
+void init_hub(Hub* h, int fields) {
+    h->f = malloc(fields * sizeof(Field));
+    h->num_fields = fields;
+}
+
+void init_server(Server* s, int hubs) {
+    s->h = malloc(hubs * sizeof(Hub));
+    s->num_hubs = hubs;
+}
+
+void free_field(Field* f) {
+    free(f->s);
+    free(f->c);
+    free(f->e);
+}
+
+void free_hub(Hub* h) {
+    for (int i = 0; i < h->num_fields; i++) {
+        free_field(&h->f[i]);
+    }
+    free(h->f);
+}
+
+void free_server(Server* s) {
+    for (int i = 0; i < s->num_hubs; i++) {
+        free_hub(&s->h[i]);
+    }
+    free(s->h);
+}
+
+int main() {
+    Server s;
+    init_server(&s, 2);
+    
+    init_hub(&s.h[0], 3);
+    init_hub(&s.h[1], 2);
+
+    init_field(&s.h[0].f[0], 5, 3, 2);
+    init_field(&s.h[0].f[1], 6, 4, 3);
+    init_field(&s.h[0].f[2], 4, 2, 2);
+
+    init_field(&s.h[1].f[0], 5, 3, 2);
+    init_field(&s.h[1].f[1], 6, 4, 3);
+
+    // Use the data...
+
+    free_server(&s);
+    return 0;
+}

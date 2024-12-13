@@ -1,0 +1,95 @@
+QUESTION 7:
+
+
+/*
+I used dynamic memory allocation (malloc) to create 2D arrays for storing user engagement, device preferences, and content metadata. 
+This approach allows the platform to handle varying numbers of users, categories, and devices without predefined limits. 
+*/
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct {
+    char title[50];
+    float rating;
+    int runtime;
+    char encoding[20];
+} Content;
+
+typedef struct {
+    int *engagementScores;
+} UserProfile;
+
+int main() {
+    int numUsers = 5, numCategories = 3, numDevices = 3, numContent = 4;
+    int i, j;
+
+    // Dynamically allocate engagement matrix (user x category)
+    double **engagementMatrix = malloc(numUsers * sizeof(double *));
+    for (i = 0; i < numUsers; i++) {
+        engagementMatrix[i] = malloc(numCategories * sizeof(double));
+    }
+
+    // Dynamically allocate device matrix (user x device)
+    int **deviceMatrix = malloc(numUsers * sizeof(int *));
+    for (i = 0; i < numUsers; i++) {
+        deviceMatrix[i] = malloc(numDevices * sizeof(int));
+    }
+
+    // Dynamically allocate content metadata matrix (category x content)
+    Content ***contentMatrix = malloc(numCategories * sizeof(Content **));
+    for (i = 0; i < numCategories; i++) {
+        contentMatrix[i] = malloc(numContent * sizeof(Content *));
+        for (j = 0; j < numContent; j++) {
+            contentMatrix[i][j] = malloc(sizeof(Content));
+        }
+    }
+
+
+    engagementMatrix[0][0] = 4.5;
+    engagementMatrix[0][1] = 3.2;
+    engagementMatrix[0][2] = 5.0;
+
+
+    deviceMatrix[0][0] = 1080;
+    deviceMatrix[0][1] = 720;
+    deviceMatrix[0][2] = 1440;
+
+
+    strcpy(contentMatrix[0][0]->title, "Action Movie 1");
+    contentMatrix[0][0]->rating = 8.5;
+    contentMatrix[0][0]->runtime = 120;
+    strcpy(contentMatrix[0][0]->encoding, "H.264");
+
+    
+    printf("User 0, Action Category Engagement: %.2f\n", engagementMatrix[0][0]);
+    engagementMatrix[0][0] = 5.0;
+    printf("Updated Engagement: %.2f\n", engagementMatrix[0][0]);
+
+  
+    printf("User 0, Device 0 Resolution: %d\n", deviceMatrix[0][0]);
+
+    printf("Content Title: %s, Rating: %.2f, Runtime: %d minutes\n",
+           contentMatrix[0][0]->title,
+           contentMatrix[0][0]->rating,
+           contentMatrix[0][0]->runtime);
+
+    for (i = 0; i < numUsers; i++) {
+        free(engagementMatrix[i]);
+        free(deviceMatrix[i]);
+    }
+    free(engagementMatrix);
+    free(deviceMatrix);
+
+    for (i = 0; i < numCategories; i++) {
+        for (j = 0; j < numContent; j++) {
+            free(contentMatrix[i][j]);
+        }
+        free(contentMatrix[i]);
+    }
+    free(contentMatrix);
+
+    return 0;
+}

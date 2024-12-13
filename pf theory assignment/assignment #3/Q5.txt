@@ -1,0 +1,89 @@
+QUESTION 5:
+
+/*
+To build the inventory system, I started by using a 2D dynamic array where each row stores supplies for a species. 
+I thought about how to add, update, and remove supplies by dynamically allocating and reallocating memory for each species and their supplies. 
+Lastly, I focused on ensuring proper memory management, freeing memory when species are removed, and displaying the inventory for the user.
+*/
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+char*** initInventory(int r) {
+    char ***inv = malloc(r * sizeof(char**));  
+    for (int i = 0; i < r; i++) {
+        inv[i] = malloc(1 * sizeof(char*));  
+        inv[i][0] = NULL;
+    }
+    return inv;
+}
+
+// Function to add supplies
+void addSupply(char ***inv, int r, int c, const char* sup) {
+    inv[r] = realloc(inv[r], (c + 1) * sizeof(char*));  // Reallocate memory for new supply
+    inv[r][c] = malloc(strlen(sup) + 1);  
+    strcpy(inv[r][c], sup);  
+}
+
+void updateSupply(char ***inv, int r, int c, const char* newSup) {
+    free(inv[r][c]);  
+    inv[r][c] = malloc(strlen(newSup) + 1);  
+    strcpy(inv[r][c], newSup);  
+}
+
+void removeSpecies(char ***inv, int *r, int species) {
+    for (int i = 0; inv[species][i] != NULL; i++) {
+        free(inv[species][i]);  // Free the memory for supplies
+    }
+    free(inv[species]); 
+    for (int i = species; i < *r - 1; i++) {
+        inv[i] = inv[i + 1];  // Shift the species up
+    }
+    (*r)--;  // Decrease the species count
+}
+
+
+void displayInventory(char ***inv, int r) {
+    for (int i = 0; i < r; i++) {
+        printf("Species %d:\n", i + 1);
+        for (int j = 0; inv[i][j] != NULL; j++) {
+            printf("  - %s\n", inv[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int s = 3;  // Number of species (initially)
+    char ***inventory = initInventory(s);
+    
+    // Adding supplies
+    addSupply(inventory, 0, 0, "Food");
+    addSupply(inventory, 0, 1, "Leash");
+    addSupply(inventory, 1, 0, "Food");
+    addSupply(inventory, 2, 0, "Seeds");
+    addSupply(inventory, 2, 1, "Cage");
+    
+   
+    updateSupply(inventory, 1, 0, "Dry Food");
+    
+    displayInventory(inventory, s);
+    
+    removeSpecies(inventory, &s, 1);
+    
+    printf("\nUpdated Inventory:\n");
+    displayInventory(inventory, s);
+    
+    
+    for (int i = 0; i < s; i++) {
+        for (int j = 0; inventory[i][j] != NULL; j++) {
+            free(inventory[i][j]);  
+        }
+        free(inventory[i]);  
+    }
+    free(inventory);  
+    
+    return 0;
+}

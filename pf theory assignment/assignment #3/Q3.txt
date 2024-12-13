@@ -1,0 +1,72 @@
+QUESTION 3:
+
+/*To solve the problem, I focused on handling user input dynamically using malloc to allocate memory based on the input size and fgets for compatibility across compilers. 
+The validation logic was designed to check key criteria: the email must contain exactly one @ symbol, at least one . after the @, and be non-empty.
+ Finally, I ensured proper memory management by freeing the allocated memory after validation to prevent leaks and handled potential input errors gracefully.
+*/
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int validateEmail(char *email) {
+    if (email == NULL || strlen(email) == 0) {
+        return 0; 
+    }
+
+    int atCount = 0;
+    char *atPosition = NULL;
+
+    // Check for exactly one '@' and save its position
+    for (char *ptr = email; *ptr != '\0'; ptr++) {
+        if (*ptr == '@') {
+            atCount++;
+            if (atCount == 1) {
+                atPosition = ptr;
+            }
+        }
+    }
+
+    if (atCount != 1 || atPosition == NULL) {
+        return 0; 
+    }
+
+    // Check if there is at least one '.' after the '@'
+    char *dotPosition = strchr(atPosition, '.');
+    if (dotPosition == NULL) {
+        return 0; 
+    }
+
+    return 1; 
+}
+
+int main() {
+    char *email = NULL;
+    size_t size = 100; 
+
+    email = (char *)malloc(size * sizeof(char));
+    if (email == NULL) {
+        printf("Memory allocation failed.\n");
+        return 1;
+    }
+
+    printf("Enter your email address: ");
+    if (fgets(email, size, stdin) == NULL) {
+        printf("Error reading input.\n");
+        free(email);
+        return 1;
+    }
+
+    email[strcspn(email, "\n")] = '\0';
+
+    if (validateEmail(email)) {
+        printf("Valid Email\n");
+    } else {
+        printf("Invalid Email\n");
+    }
+
+    free(email);
+
+    return 0;
+}

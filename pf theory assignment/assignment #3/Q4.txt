@@ -1,0 +1,117 @@
+QUESTION 4:
+
+/*
+First, I defined a structure for storing employee ratings and dynamically allocated memory for the ratings array. 
+Then, I wrote functions to input, display, and analyze the ratings, ensuring proper validation. 
+I calculated the employee of the year, highest-rated period, and worst-performing employee based on average ratings. 
+Finally, I ensured memory was freed after the tasks were complete to avoid memory leaks.
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+
+void inputEmployees(int** r, int nE, int nP) {
+    for (int i = 0; i < nE; i++) {
+        for (int j = 0; j < nP; j++) {
+            do {
+                printf("Enter rating for Employee %d, Period %d (1-10): ", i + 1, j + 1);
+                scanf("%d", &r[i][j]);
+            } while (r[i][j] < 1 || r[i][j] > 10); // Validate rating
+        }
+    }
+}
+
+void displayPerformance(int** r, int nE, int nP) {
+    for (int i = 0; i < nE; i++) {
+        printf("Employee %d Ratings: ", i + 1);
+        for (int j = 0; j < nP; j++) {
+            printf("%d ", r[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+int findEmployeeOfTheYear(int** r, int nE, int nP) {
+    int bestEmp = 0;
+    float maxAvg = 0;
+    for (int i = 0; i < nE; i++) {
+        int sum = 0;
+        for (int j = 0; j < nP; j++) {
+            sum += r[i][j];
+        }
+        float avg = sum / (float)nP;
+        if (avg > maxAvg) {
+            maxAvg = avg;
+            bestEmp = i;
+        }
+    }
+    return bestEmp;
+}
+
+int findHighestRatedPeriod(int** r, int nE, int nP) {
+    int bestPeriod = 0;
+    float maxAvg = 0;
+    for (int j = 0; j < nP; j++) {
+        int sum = 0;
+        for (int i = 0; i < nE; i++) {
+            sum += r[i][j];
+        }
+        float avg = sum / (float)nE;
+        if (avg > maxAvg) {
+            maxAvg = avg;
+            bestPeriod = j;
+        }
+    }
+    return bestPeriod;
+}
+
+int findWorstPerformingEmployee(int** r, int nE, int nP) {
+    int worstEmp = 0;
+    float minAvg = 10; // highest possible average (10 per period)
+    for (int i = 0; i < nE; i++) {
+        int sum = 0;
+        for (int j = 0; j < nP; j++) {
+            sum += r[i][j];
+        }
+        float avg = sum / (float)nP;
+        if (avg < minAvg) {
+            minAvg = avg;
+            worstEmp = i;
+        }
+    }
+    return worstEmp;
+}
+
+int main() {
+    int nE, nP;
+    printf("Enter number of employees: ");
+    scanf("%d", &nE);
+    printf("Enter number of evaluation periods: ");
+    scanf("%d", &nP);
+
+    // Dynamically allocate memory for ratings
+    int** ratings = (int**)malloc(nE * sizeof(int*));
+    for (int i = 0; i < nE; i++) {
+        ratings[i] = (int*)malloc(nP * sizeof(int));
+    }
+
+    
+    inputEmployees(ratings, nE, nP);
+    displayPerformance(ratings, nE, nP);
+
+    int bestEmp = findEmployeeOfTheYear(ratings, nE, nP);
+    printf("Employee of the Year: Employee %d\n", bestEmp + 1);
+    int bestPeriod = findHighestRatedPeriod(ratings, nE, nP);
+    printf("Highest Rated Period: Period %d\n", bestPeriod + 1);
+
+    // Find Worst Performing Employee
+    int worstEmp = findWorstPerformingEmployee(ratings, nE, nP);
+    printf("Worst Performing Employee: Employee %d\n", worstEmp + 1);
+
+    for (int i = 0; i < nE; i++) {
+        free(ratings[i]);
+    }
+    free(ratings);
+
+    return 0;
+}

@@ -1,0 +1,105 @@
+QUESTION 2:
+
+
+#include <stdio.h>
+#include <string.h>
+
+#define BALLS 12
+#define MAX_NAME_LENGTH 50
+
+typedef struct {
+    char playerName[MAX_NAME_LENGTH];
+    int ballScores[BALLS];
+    int totalScore;
+} Player;
+
+
+void playGame(Player *player);
+int validateScore(int score);
+void findWinner(Player player1, Player player2);
+void displayScoreboard(Player player1, Player player2);
+
+int main() {
+    Player player1, player2;
+
+    // Initialize player details
+    printf("Enter the name of Player 1: ");
+    fgets(player1.playerName, MAX_NAME_LENGTH, stdin);
+    player1.playerName[strcspn(player1.playerName, "\n")] = '\0';
+    player1.totalScore = 0;
+
+    printf("Enter the name of Player 2: ");
+    fgets(player2.playerName, MAX_NAME_LENGTH, stdin);
+    player2.playerName[strcspn(player2.playerName, "\n")] = '\0'; 
+    player2.totalScore = 0;
+
+    // Each player plays the game
+    printf("\n%s's turn:\n", player1.playerName);
+    playGame(&player1);
+
+    printf("\n%s's turn:\n", player2.playerName);
+    playGame(&player2);
+
+    // Display the match scoreboard
+    printf("\nMatch Scoreboard:\n");
+    displayScoreboard(player1, player2);
+
+    // Determine the winner
+    findWinner(player1, player2);
+
+    return 0;
+}
+
+// Function to play the game
+void playGame(Player *player) {
+    for (int i = 0; i < BALLS; i++) {
+        int score;
+        printf("Ball %d: Enter score (0-6): ", i + 1);
+        scanf("%d", &score);
+
+        // Validate score
+        if (validateScore(score)) {
+            player->ballScores[i] = score;
+            player->totalScore += score;
+        } else {
+            player->ballScores[i] = 0;
+            printf("Invalid score! Ball marked, but no runs added.\n");
+        }
+    }
+}
+
+// Function to validate the score
+int validateScore(int score) {
+    return (score >= 0 && score <= 6);
+}
+
+// Function to determine the winner
+void findWinner(Player player1, Player player2) {
+    if (player1.totalScore > player2.totalScore) {
+        printf("\nWinner: %s with %d runs!\n", player1.playerName, player1.totalScore);
+    } else if (player2.totalScore > player1.totalScore) {
+        printf("\nWinner: %s with %d runs!\n", player2.playerName, player2.totalScore);
+    } else {
+        printf("\nIt's a tie! Both players scored %d runs.\n", player1.totalScore);
+    }
+}
+
+// Function to display the match scoreboard
+void displayScoreboard(Player player1, Player player2) {
+    printf("\n%s's Performance:\n", player1.playerName);
+    printf("Scores: ");
+    for (int i = 0; i < BALLS; i++) {
+        printf("%d ", player1.ballScores[i]);
+    }
+    printf("\nTotal Score: %d\n", player1.totalScore);
+    printf("Average Score: %.2f\n", (float)player1.totalScore / BALLS);
+
+    printf("\n%s's Performance:\n", player2.playerName);
+    printf("2
+	Scores: ");
+    for (int i = 0; i < BALLS; i++) {
+        printf("%d ", player2.ballScores[i]);
+    }
+    printf("\nTotal Score: %d\n", player2.totalScore);
+    printf("Average Score: %.2f\n", (float)player2.totalScore / BALLS);
+}
